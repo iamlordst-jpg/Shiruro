@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#120b2c"/><stop offset="1" stop-color="#050311"/></linearGradient>
+<linearGradient id="moon" x1=".12" y1=".05" x2=".86" y2=".94"><stop stop-color="#fff2ff"/><stop offset=".45" stop-color="#c99aff"/><stop offset="1" stop-color="#7135ed"/></linearGradient>
+<linearGradient id="orbit" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8b4cff"/><stop offset=".48" stop-color="#f4d8ff"/><stop offset="1" stop-color="#6f35eb"/></linearGradient>
+<filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="26"/></filter>
+</defs>
+<rect width="1024" height="1024" rx="220" fill="url(#bg)"/>
+<circle cx="500" cy="490" r="310" fill="#8d4bff" opacity=".25" filter="url(#glow)"/>
+<path d="M744 190C552 104 326 190 250 390c-77 203 25 429 228 505 144 54 308 9 404-105-160 79-354 25-445-130-96-163-43-372 118-468 59-35 126-52 189-49Z" fill="url(#moon)"/>
+<path d="M154 698c107 108 426 71 655-81 79-52 135-109 161-162-6 91-93 192-226 276-226 144-531 190-650 95-49-39-35-99 30-168-22 22-20 28 30 40Z" fill="url(#orbit)"/>
+<path d="M500 334c17 120 45 148 165 165-120 17-148 45-165 165-17-120-45-148-165-165 120-17 148-45 165-165Z" fill="#fff4ff"/>
+<path d="M500 448l67 51-67 51Z" fill="#251044"/>
+<path d="M700 256c8 57 22 71 79 79-57 8-71 22-79 79-8-57-22-71-79-79 57-8 71-22 79-79Z" fill="#d9aaff"/>
+<path d="M275 805c7 47 18 58 65 65-47 7-58 18-65 65-7-47-18-58-65-65 47-7 58-18 65-65Z" fill="#a96aff"/>
+</svg>
