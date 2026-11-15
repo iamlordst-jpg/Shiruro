@@ -1,0 +1,46 @@
+name: Build Shiruro IPA
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, initial-hybrid-app]
+    paths:
+      - "Shiruro/**"
+      - "Shiruro.xcodeproj/**"
+      - "branding/**"
+      - ".github/workflows/build-ipa.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Install SVG renderer
+        run: brew install librsvg
+      - name: Generate app icon
+        run: rsvg-convert -w 1024 -h 1024 branding/shiruro-icon.svg > Shiruro/Assets.xcassets/AppIcon.appiconset/AppIcon.png
+      - name: Build unsigned app
+        run: |
+          xcodebuild \
+            -project Shiruro.xcodeproj \
+            -scheme Shiruro \
+            -configuration Release \
+            -sdk iphoneos \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO
+      - name: Package IPA
+        run: |
+          mkdir -p Payload
+          cp -R build/Build/Products/Release-iphoneos/Shiruro.app Payload/
+          /usr/bin/zip -r Shiruro.ipa Payload
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: Shiruro-unsigned-ipa
+          path: Shiruro.ipa
+          if-no-files-found: error
+          retention-days: 14
