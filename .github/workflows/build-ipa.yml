@@ -7,7 +7,6 @@ on:
     paths:
       - "Shiruro/**"
       - "Shiruro.xcodeproj/**"
-      - "project.yml"
       - "branding/**"
       - ".github/workflows/build-ipa.yml"
 
@@ -21,14 +20,11 @@ jobs:
       - name: Check out source
         uses: actions/checkout@v4
 
-      - name: Install build tools
-        run: brew install librsvg xcodegen
+      - name: Install SVG renderer
+        run: brew install librsvg
 
       - name: Generate app icon
         run: rsvg-convert -w 1024 -h 1024 branding/shiruro-icon.svg > Shiruro/Assets.xcassets/AppIcon.appiconset/AppIcon.png
-
-      - name: Generate Xcode project
-        run: xcodegen generate --spec project.yml
 
       - name: Build unsigned app
         run: |
