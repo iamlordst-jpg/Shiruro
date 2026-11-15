@@ -24,6 +24,34 @@ final class MiruroBrowser: ObservableObject {
         webView.load(URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 30))
     }
 
+    func focusPlayer() {
+        let script = """
+        (() => {
+          const styleId = 'shiruro-player-focus';
+          if (!document.getElementById(styleId)) {
+            const style = document.createElement('style');
+            style.id = styleId;
+            style.textContent = 'body > header, body > nav, body > footer { display:none !important; }';
+            document.head.appendChild(style);
+          }
+          const candidates = [
+            ...Array.from(document.querySelectorAll('video')),
+            ...Array.from(document.querySelectorAll('iframe'))
+          ];
+          const target = candidates.find(el => {
+            const r = el.getBoundingClientRect();
+            return r.width > 160 && r.height > 90;
+          });
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return true;
+          }
+          return false;
+        })();
+        """
+        webView.evaluateJavaScript(script, completionHandler: nil)
+    }
+
     func goBack() { if webView.canGoBack { webView.goBack() } }
     func reload() { webView.reload() }
 
