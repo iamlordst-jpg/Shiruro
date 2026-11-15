@@ -208,11 +208,34 @@ struct ContentView: View {
 
     private var playerView: some View {
         VStack(spacing: 0) {
+            HStack(spacing: 10) {
+                Image(systemName: "play.rectangle.fill")
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundStyle(Color(red: 0.78, green: 0.62, blue: 1))
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("SHIRURO PLAYER")
+                        .font(.system(size: 10, weight: .bold, design: .rounded))
+                        .tracking(1.4).foregroundStyle(.white.opacity(0.55))
+                    Text("Now playing")
+                        .font(.system(size: 17, weight: .bold, design: .rounded))
+                }
+                Spacer()
+                Button { browser.focusPlayer() } label: {
+                    Image(systemName: "arrow.down.to.line.compact")
+                        .font(.system(size: 14, weight: .semibold))
+                        .frame(width: 36, height: 36)
+                        .background(.white.opacity(0.08), in: Circle())
+                }.accessibilityLabel("Focus video player")
+            }
+            .foregroundStyle(.white).padding(.horizontal, 16).padding(.vertical, 12)
             MiruroWebView(browser: browser)
+                .clipShape(RoundedRectangle(cornerRadius: 14))
+                .padding(.horizontal, 8)
+                .onAppear { browser.focusPlayer() }
             VStack(spacing: 12) {
                 HStack {
                     VStack(alignment: .leading, spacing: 3) {
-                        Text("Playback controls").font(.system(size: 16, weight: .bold, design: .rounded))
+                        Text("Playback").font(.system(size: 16, weight: .bold, design: .rounded))
                         Text(playerMessage).font(.system(size: 10)).foregroundStyle(.white.opacity(0.48)).lineLimit(2)
                     }
                     Spacer()
