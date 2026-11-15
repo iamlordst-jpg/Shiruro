@@ -55,7 +55,7 @@
 /* Begin PBXNativeTarget section */
     E10000000000000000000001 /* Shiruro */ = {
       isa = PBXNativeTarget;
-      buildConfigurationList = F10000000000000000000002 /* Build configuration list for PBXNativeTarget "Shiruro" */;
+      buildConfigurationList = F20000000000000000000002 /* Build configuration list for PBXNativeTarget "Shiruro" */;
       buildPhases = (
         C10000000000000000000001 /* Frameworks */,
         C10000000000000000000002 /* Sources */,
@@ -78,7 +78,7 @@
         LastUpgradeCheck = 1600;
         TargetAttributes = { E10000000000000000000001 = {CreatedOnToolsVersion = 16.0; }; };
       };
-      buildConfigurationList = F10000000000000000000001 /* Build configuration list for PBXProject "Shiruro" */;
+      buildConfigurationList = F20000000000000000000001 /* Build configuration list for PBXProject "Shiruro" */;
       compatibilityVersion = "Xcode 14.0";
       developmentRegion = en;
       hasScannedForEncodings = 0;
@@ -173,7 +173,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-    F10000000000000000000001 /* Build configuration list for PBXProject "Shiruro" */ = {
+    F20000000000000000000001 /* Build configuration list for PBXProject "Shiruro" */ = {
       isa = XCConfigurationList;
       buildConfigurations = (
         F10000000000000000000001 /* Debug project */,
@@ -182,7 +182,7 @@
       defaultConfigurationIsVisible = 0;
       defaultConfigurationName = Release;
     };
-    F10000000000000000000002 /* Build configuration list for PBXNativeTarget "Shiruro" */ = {
+    F20000000000000000000002 /* Build configuration list for PBXNativeTarget "Shiruro" */ = {
       isa = XCConfigurationList;
       buildConfigurations = (
         F10000000000000000000003 /* Debug target */,
