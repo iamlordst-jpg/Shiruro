@@ -20,10 +20,10 @@ jobs:
       - name: Check out source
         uses: actions/checkout@v4
       - name: Install SVG renderer
-        run: brew install librsvg
+        run: brew install librsvg xcodegen
       - name: Generate app icon
         run: rsvg-convert -w 1024 -h 1024 branding/shiruro-icon.svg > Shiruro/Assets.xcassets/AppIcon.appiconset/AppIcon.png
-      - name: Build unsigned app
+      - name: Generate Xcode project\n        run: xcodegen generate --spec project.yml\n      - name: Build unsigned app
         run: |
           xcodebuild \
             -project Shiruro.xcodeproj \
