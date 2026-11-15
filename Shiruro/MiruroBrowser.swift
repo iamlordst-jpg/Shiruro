@@ -8,6 +8,8 @@ final class MiruroBrowser: ObservableObject {
     init() {
         let configuration = WKWebViewConfiguration()
         configuration.websiteDataStore = .default()
+        configuration.allowsInlineMediaPlayback = true
+        configuration.mediaTypesRequiringUserActionForPlayback = []
         webView = WKWebView(frame: .zero, configuration: configuration)
         webView.allowsBackForwardNavigationGestures = true
         webView.scrollView.contentInsetAdjustmentBehavior = .never
@@ -24,6 +26,75 @@ final class MiruroBrowser: ObservableObject {
 
     func goBack() { if webView.canGoBack { webView.goBack() } }
     func reload() { webView.reload() }
+
+    func search(_ query: String, completion: @escaping (Bool) -> Void) {
+        let safeQuery = query
+            .replacingOccurrences(of: "\\", with: "\\\\")
+            .replacingOccurrences(of: "'", with: "\\'")
+            .replacingOccurrences(of: "\n", with: " ")
+        let script = """
+        (() => {
+          const q = '\(safeQuery)';
+          const candidates = Array.from(document.querySelectorAll('input'));
+          const field = candidates.find(el =>
+            el.type === 'search' ||
+            /search|anime/i.test((el.placeholder || '') + ' ' + (el.getAttribute('aria-label') || '') + ' ' + (el.name || ''))
+          );
+          if (!field) return false;
+          field.focus();
+          const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set;
+          setter.call(field, q);
+          field.dispatchEvent(new Event('input', { bubbles: true }));
+          field.dispatchEvent(new Event('change', { bubbles: true }));
+          field.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', bubbles: true }));
+          field.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter', code: 'Enter', bubbles: true }));
+          const form = field.closest('form');
+          if (form) form.requestSubmit();
+          return true;
+        })();
+        """
+        webView.evaluateJavaScript(script) { result, _ in
+            completion((result as? Bool) ?? false)
+        }
+    }
+
+    func scrollToSection(_ title: String) {
+        let safeTitle = title.replacingOccurrences(of: "'", with: "\\'")
+        let script = """
+        (() => {
+          const target = Array.from(document.querySelectorAll('h1,h2,h3,[role=heading]'))
+            .find(el => (el.innerText || '').toLowerCase().includes('\(safeTitle.lowercased())'));
+          if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); return true; }
+          return false;
+        })();
+        """
+        webView.evaluateJavaScript(script, completionHandler: nil)
+    }
+
+    func togglePlayback() {
+        webView.evaluateJavaScript("""
+        (() => { const v = document.querySelector('video'); if (!v) return false;
+          if (v.paused) { const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+          else v.pause(); return true; })()
+        """, completionHandler: nil)
+    }
+
+    func seek(by seconds: Double) {
+        webView.evaluateJavaScript("""
+        (() => { const v = document.querySelector('video'); if (!v) return false;
+          v.currentTime = Math.max(0, Math.min(v.duration || Infinity, v.currentTime + (\(seconds))));
+          return true; })()
+        """, completionHandler: nil)
+    }
+
+    func enterFullscreen() {
+        webView.evaluateJavaScript("""
+        (() => { const v = document.querySelector('video'); if (!v) return false;
+          if (v.webkitEnterFullscreen) v.webkitEnterFullscreen();
+          else if (v.requestFullscreen) v.requestFullscreen();
+          return true; })()
+        """, completionHandler: nil)
+    }
 }
 
 struct MiruroWebView: UIViewRepresentable {
