@@ -55,6 +55,7 @@ struct ContentView: View {
                     case .library: libraryView
                     }
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 tabBar
             }
         }
@@ -89,7 +90,10 @@ struct ContentView: View {
                 }.accessibilityLabel("Reload Miruro")
             }
         }
-        .foregroundStyle(.white).padding(.horizontal, 16).padding(.top, 8).padding(.bottom, 11)
+        .foregroundStyle(.white)
+        .padding(.horizontal, 16)
+        .padding(.top, 7)
+        .padding(.bottom, 9)
         .background(Color(red: 0.055, green: 0.035, blue: 0.11))
     }
 
@@ -157,6 +161,7 @@ struct ContentView: View {
                 }
             }
             .padding(18)
+            .padding(.bottom, 6)
         }
     }
 
@@ -184,9 +189,9 @@ struct ContentView: View {
     }
 
     private var searchView: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 10) {
             VStack(alignment: .leading, spacing: 8) {
-                Text("Search anime").font(.system(size: 23, weight: .bold, design: .rounded))
+                Text("Search anime").font(.system(size: 22, weight: .bold, design: .rounded))
                 HStack(spacing: 9) {
                     Image(systemName: "magnifyingglass").foregroundStyle(.white.opacity(0.45))
                     TextField("Search Miruro", text: $searchText)
@@ -199,10 +204,16 @@ struct ContentView: View {
                 }
                 .padding(13).background(.white.opacity(0.07), in: RoundedRectangle(cornerRadius: 14))
                 Text(searchMessage).font(.system(size: 11)).foregroundStyle(.white.opacity(0.48))
-            }.padding(.horizontal, 16).padding(.top, 14)
+            }
+            .padding(.horizontal, 16)
+            .padding(.top, 12)
 
-            MiruroWebView(browser: browser).clipShape(RoundedRectangle(cornerRadius: 14))
+            MiruroWebView(browser: browser)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color(red: 0.035, green: 0.025, blue: 0.075))
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                 .padding(.horizontal, 8)
+                .padding(.bottom, 8)
         }
     }
 
@@ -229,8 +240,11 @@ struct ContentView: View {
             }
             .foregroundStyle(.white).padding(.horizontal, 16).padding(.vertical, 12)
             MiruroWebView(browser: browser)
-                .clipShape(RoundedRectangle(cornerRadius: 14))
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color(red: 0.035, green: 0.025, blue: 0.075))
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                 .padding(.horizontal, 8)
+                .padding(.bottom, 8)
                 .onAppear { browser.focusPlayer() }
             VStack(spacing: 12) {
                 HStack {
@@ -343,6 +357,7 @@ struct ContentView: View {
                 }.buttonStyle(.plain)
             }
         }
+        .padding(.bottom, 3)
         .background(Color(red: 0.055, green: 0.035, blue: 0.11))
         .overlay(alignment: .top) { Rectangle().fill(.white.opacity(0.08)).frame(height: 0.5) }
     }
