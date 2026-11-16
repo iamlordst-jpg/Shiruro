@@ -9,6 +9,7 @@ A community-built iOS companion for [Miruro](https://miruro.to/), wrapped in a c
 [![Build Shiruro IPA](https://github.com/iamlordst-jpg/shiruro/actions/workflows/build-ipa.yml/badge.svg?branch=initial-hybrid-app)](https://github.com/iamlordst-jpg/shiruro/actions/workflows/build-ipa.yml)
 ![Platform](https://img.shields.io/badge/platform-iOS-8A5CF6?style=flat)
 ![Built with](https://img.shields.io/badge/built%20with-SwiftUI-orange?style=flat)
+[![Latest Release](https://img.shields.io/github/v/release/iamlordst-jpg/shiruro?label=latest%20release)](https://github.com/iamlordst-jpg/shiruro/releases/latest)
 
 </div>
 
@@ -19,6 +20,15 @@ A community-built iOS companion for [Miruro](https://miruro.to/), wrapped in a c
 Shiruro gives Miruro a dedicated iOS home with its own visual identity and a streamlined in-app browsing experience.
 
 The app is built with **SwiftUI** and **WKWebView**. Shiruro provides the native shell; anime discovery, search, episode pages, and video playback are handled by the Miruro website.
+
+## Download
+
+**Shiruro v1.0.0 — Initial Release** is available now.
+
+- **[Download Shiruro.ipa](https://github.com/iamlordst-jpg/shiruro/releases/download/v1.0.0/Shiruro.ipa)**
+- **[View the release and version notes](https://github.com/iamlordst-jpg/shiruro/releases/tag/v1.0.0)**
+
+The IPA may require signing with a valid Apple signing method before it can be installed on a physical iPhone.
 
 ## Features
 
@@ -48,7 +58,7 @@ The repository includes a GitHub Actions workflow.
 3. Choose **Run workflow** on the `initial-hybrid-app` branch.
 4. Open the completed run and download the `Shiruro-unsigned-ipa` artifact.
 
-The workflow produces an **unsigned IPA**. A valid Apple signing method is required before installing it on a physical iPhone.
+The workflow produces an **unsigned IPA**. A valid Apple signing method is required before installing that build on a physical iPhone.
 
 ## Project structure
 
